@@ -21,7 +21,7 @@ class Post {
           imageUrl: json['imageUrl']! as String,
         );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, Object?> toJson() => {
         'title': title,
         'likes': likes,
         'createdAt': createdAt,

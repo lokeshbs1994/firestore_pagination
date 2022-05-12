@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firestore_pagination/model/post.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +45,9 @@ class _MainPageState extends State<MainPage> {
     final postCollection =
         FirebaseFirestore.instance.collection('posts').withConverter(
               fromFirestore: (snapshot, _) => Post.fromJson(snapshot.data()!),
-              toFirestore: (post, _) => post?.toJson(),
+              toFirestore: (post, _) => post.toJson(),
             );
+
     final numbers = List.generate(500, (index) => index + 1);
 
     for (final number in numbers) {
@@ -56,6 +57,7 @@ class _MainPageState extends State<MainPage> {
         createdAt: DateTime.now(),
         imageUrl: 'https://source.unsplash.com/random?sig=$number',
       );
+      postCollection.add(post);
     }
   }
 
